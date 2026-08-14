@@ -5,7 +5,7 @@
 
 '''
 Test-wide **fixture integration test** (i.e., integration tests testing that
-this plugin passed the ``--beartype-fixtures`` option correctly type-checks
+this plugin passed the ``--beartype-test-fixtures`` option correctly type-checks
 fixtures) submodule.
 
 This submodule is *not* intended to be directly collected by the root

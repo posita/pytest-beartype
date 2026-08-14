@@ -91,7 +91,7 @@ def get_test_func_data_pytester_option_beartype_fixtures() -> Path:
     :class:`.Path` encapsulating the absolute filename of the **mid-level
     integration test data pytester fixtures submodule** (i.e., defining
     integration tests testing that this plugin passed the
-    ``--beartype-fixtures`` option correctly type-checks fixtures) if found *or*
+    ``--beartype-test-fixtures`` option correctly type-checks fixtures) if found *or*
     raise an exception otherwise.
     '''
 

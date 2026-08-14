@@ -35,8 +35,8 @@ def pytest_addoption(parser: 'pytest.Parser') -> None:
 
     # Defer hook-specific imports.
     from pytest_beartype._util.utilopt import (
-        add_pytest_option_list,
         add_pytest_option_bool,
+        add_pytest_option_list,
     )
 
     # Plugin option type-checking one or more packages with an
@@ -74,8 +74,8 @@ def pytest_addoption(parser: 'pytest.Parser') -> None:
     # Plugin option type-checking pytest fixtures.
     add_pytest_option_bool(
         parser=parser,
-        option_name_cli='--beartype-fixtures',
-        option_name_conf='beartype_fixtures',
+        option_name_cli='--beartype-test-fixtures',
+        option_name_conf='beartype_test_fixtures',
         help_message='type-check pytest fixture functions with beartype',
     )
 

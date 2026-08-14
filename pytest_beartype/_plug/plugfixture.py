@@ -74,7 +74,7 @@ def pytest_fixture_setup(
     if (
         # *NOT* instructed by the user to type-check fixtures *OR*...
         not is_pytest_option_bool(
-            config=request.config, option_name='beartype_fixtures') or
+            config=request.config, option_name='beartype_test_fixtures') or
         # This fixture has already been type-checked...
         hasattr(fixturedef, '__beartype_fixture_wrapper')
     ):
@@ -91,10 +91,12 @@ def pytest_fixture_setup(
         beartype_fixture_sync_nongenerator,
     )
     from inspect import (
+        getfile,
         isasyncgenfunction,
         iscoroutinefunction,
         isgeneratorfunction,
     )
+    from pathlib import Path
 
     # ....................{ LOCALS                         }....................
     # Low-level pure-Python function implementing this high-level fixture.
@@ -107,22 +109,25 @@ def pytest_fixture_setup(
     #
     # Pytest exposes fixtures supplied by third-party plugins to this hook as
     # well as fixtures declared by the current test suite.  The
-    # ``--beartype-fixtures`` option intentionally applies only to the latter:
-    # third-party plugins are external dependencies whose annotations are not
-    # under the user's control and may be unsuitable for runtime introspection
-    # (e.g., names imported only under ``typing.TYPE_CHECKING``).
-    from inspect import getfile
+    # "--beartype-test-fixtures" option intentionally applies only to the
+    # latter: third-party plugins are external dependencies whose annotations
+    # are not under the user's control and may be unsuitable for runtime
+    # introspection (e.g., names imported only under "typing.TYPE_CHECKING").
     fixture_func_filename = getfile(fixture_func)
 
-    # If this fixture is declared outside the current test suite, preserve it as
-    # is.  In particular, this prevents pytest-beartype from accidentally
-    # type-checking fixtures supplied by other pytest plugins.
-    from pathlib import Path
+    # "Path" object encapsulating this filename.
+    fixture_func_file = Path(fixture_func_filename).resolve(strict=True)
 
-    fixture_func_path = Path(fixture_func_filename).resolve(strict=True)
-    test_suite_path = Path(request.config.rootpath).resolve(strict=True)
-    if not fixture_func_path.is_relative_to(test_suite_path):
+    # "Path" object encapsulating the absolute dirname of the top-level
+    # directory of the currently running user-specific "pytest" test suite.
+    tests_dir = Path(request.config.rootpath).resolve(strict=True)
+
+    # If this fixture is declared outside the current test suite, preserve it as
+    # is. In particular, this prevents this plugin from accidentally
+    # type-checking fixtures supplied by other third-party "pytest" plugins.
+    if not fixture_func_file.is_relative_to(tests_dir):
         return
+    # Else, this fixture is declared inside the current test suite.
 
     # ....................{ TYPE-CHECK                     }....................
     # Note that tests are intentionally ordered in descending order from most to
@@ -201,7 +206,7 @@ def pytest_pyfunc_call(pyfuncitem: 'pytest.Function') -> bool | None:
     # If *NOT* instructed by the user to type-check fixtures, reduce to a noop.
     # See below for further commentary on why "None" is returned. *sigh*
     if not is_pytest_option_bool(
-        config=pyfuncitem.config, option_name='beartype_fixtures'):
+        config=pyfuncitem.config, option_name='beartype_test_fixtures'):
         return None
     # Else, the user instructed this plugin to type-check fixtures.
 

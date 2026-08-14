@@ -1,5 +1,5 @@
 <!-- ---------------( LICENSE                              )--------------------
-Copyright (c) 2024-2025 Beartype authors.
+Copyright (c) 2024-2026 Beartype authors.
 See "LICENSE" for further details.
 
 --------------------( MAIN                                 )--------------------
@@ -56,7 +56,7 @@ tell it to – for your safety and the safety of the code you test:
 * Type-check everything at the command line! `(◕‿◕✿)`
 
   ```bash
-  $ pytest --beartype-tests --beartype-fixtures \
+  $ pytest --beartype-tests --beartype-test-fixtures \
       --beartype-packages="my_package,your_package" \
       --beartype-skip-packages="my_package.my_bad_submodule,your_bad_package"
   ```
@@ -66,7 +66,7 @@ tell it to – for your safety and the safety of the code you test:
   ```toml
   [tool.pytest.ini_options]
   beartype_tests = true
-  beartype_fixtures = true
+  beartype_test_fixtures = true
   beartype_packages = ["my_package", "your_package"]
   beartype_skip_packages = ["my_package.my_bad_submodule", "your_bad_package"]
   ```
@@ -76,7 +76,7 @@ tell it to – for your safety and the safety of the code you test:
   ```ini
   [pytest]
   beartype_tests = true
-  beartype_fixtures = true
+  beartype_test_fixtures = true
   beartype_packages = my_package your_package
   beartype_skip_packages = my_package.my_bad_submodule your_bad_package
   ```
@@ -95,7 +95,7 @@ files:
 | **Type-check**    | **CLI Option**                                   | **`pyproject.toml` Option**                          | **`pytest.ini` Option**                          |
 |-------------------|--------------------------------------------------|------------------------------------------------------|--------------------------------------------------|
 | *All* tests       | `--beartype-tests`                               | `beartype_tests = true`                              | `beartype_tests = true`                          |
-| *All* fixtures    | `--beartype-fixtures`                            | `beartype_fixtures = true`                           | `beartype_fixtures = true`                       |
+| *All* fixtures    | `--beartype-test-fixtures`                            | `beartype_test_fixtures = true`                           | `beartype_test_fixtures = true`                       |
 | One package       | `--beartype-packages=my_package`                 | `beartype_packages = ["my_package"]`                 | `beartype_packages = my_package`                 |
 | Multiple packages | `--beartype-packages="my_package,your_package"`  | `beartype_packages = ["my_package", "your_package"]` | `beartype_packages = my_package your_package`    |
 | Exclude packages  | `--beartype-skip-packages=my_package.bad_module` | `beartype_skip_packages = ["my_package.bad_module"]` | `beartype_skip_packages = my_package.bad_module` |
@@ -143,27 +143,35 @@ Configure `pytest-beartype` to type-check *all* your fixtures (including *all*
 parameters passed to and values returned from those fixtures as well as other
 fixtures required by those fixtures) inside your test suite:
 
-* By passing the `--beartype-fixtures` option to the [`pytest`
+* By passing the `--beartype-test-fixtures` option to the [`pytest`
   command][pytest command]:
 
   ```bash
-  pytest --beartype-fixtures
+  pytest --beartype-test-fixtures
   ```
 
-* By setting the `beartype_fixtures = true` option in your
+* By setting the `beartype_test_fixtures = true` option in your
   [`pyproject.toml` file][pyproject.toml]:
 
   ```toml
   [tool.pytest.ini_options]
-  beartype_fixtures = true
+  beartype_test_fixtures = true
   ```
 
-* By setting the `beartype_fixtures = true` option in your
+* By setting the `beartype_test_fixtures = true` option in your
   [`pytest.ini` file][pytest.ini]:
 
   ```ini
-  beartype_fixtures = true
+  beartype_test_fixtures = true
   ```
+
+> **Note:** Enabling this option does *not* configure `pytest-beartype` to
+> type-check fixtures defined outside your test suite (e.g., either standard
+> fixtures defined by [pytest][] itself *or* non-standard fixtures defined by
+> third-party [pytest][] plugins). The only fixtures that are type-checked are
+> those defined *inside* your test suite. Why? Safety. Namely, yours. External
+> fixtures are unlikely to expect or tolerate runtime type-checking. Attempting
+> to do so would likely fail on popular third-party plugins.
 
 `pytest-beartype`: Who is `pytest` to disagree?
 
