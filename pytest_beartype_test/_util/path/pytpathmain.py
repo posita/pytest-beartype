@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # --------------------( LICENSE                            )--------------------
-# Copyright (c) 2024-2025 Beartype authors.
+# Copyright (c) 2024-2026 Beartype authors.
 # See "LICENSE" for further details.
 
 '''
@@ -14,7 +14,7 @@ applicable to the codebase being tested).
 # WARNING: To raise human-readable test errors, avoid importing from
 # package-specific submodules at module scope.
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-from beartype._util.cache.utilcachecall import callable_cached
+from pytest_beartype._util.utilcache import callable_cached
 from pytest_beartype_test._util.path.pytpathlib import (
     DirRelative,
     FileRelative,

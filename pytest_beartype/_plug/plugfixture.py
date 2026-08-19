@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # --------------------( LICENSE                            )--------------------
-# Copyright (c) 2024-2025 Beartype authors.
+# Copyright (c) 2024-2026 Beartype authors.
 # See "LICENSE" for further details.
 
 '''
@@ -67,7 +67,7 @@ def pytest_fixture_setup(
 
     # ....................{ IMPORTS ~ early                }....................
     # Defer hook-specific imports.
-    from pytest_beartype._util.utilopt import is_pytest_option_bool
+    from pytest_beartype._util.utiloption import is_pytest_option_bool
 
     # ....................{ NOOP                           }....................
     # If either...
@@ -200,7 +200,7 @@ def pytest_pyfunc_call(pyfuncitem: 'pytest.Function') -> bool | None:
 
     # ....................{ IMPORTS                        }....................
     # Defer hook-specific imports.
-    from pytest_beartype._util.utilopt import is_pytest_option_bool
+    from pytest_beartype._util.utiloption import is_pytest_option_bool
 
     # ....................{ NOOP                           }....................
     # If *NOT* instructed by the user to type-check fixtures, reduce to a noop.

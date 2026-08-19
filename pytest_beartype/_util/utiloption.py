@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # --------------------( LICENSE                            )--------------------
-# Copyright (c) 2024-2025 Beartype authors.
+# Copyright (c) 2024-2026 Beartype authors.
 # See "LICENSE" for further details.
 
 '''
-Plugin **option utilities** (i.e., low-level callables inspecting :mod:`pytest`
-options in a general-purpose manner transparently supporting both command-line
-*and* configuration file options).
+Plugin-wide **option utilities** (i.e., low-level callables inspecting
+:mod:`pytest` options in a general-purpose manner transparently supporting both
+command-line *and* configuration file options).
 '''
 
 # ....................{ IMPORTS                            }....................

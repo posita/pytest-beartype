@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # --------------------( LICENSE                            )--------------------
-# Copyright (c) 2024-2025 Beartype authors.
+# Copyright (c) 2024-2026 Beartype authors.
 # See "LICENSE" for further details.
 
 '''
@@ -34,7 +34,7 @@ def pytest_addoption(parser: 'pytest.Parser') -> None:
     '''
 
     # Defer hook-specific imports.
-    from pytest_beartype._util.utilopt import (
+    from pytest_beartype._util.utiloption import (
         add_pytest_option_bool,
         add_pytest_option_list,
     )
@@ -94,7 +94,7 @@ def pytest_configure(config: 'pytest.Config') -> None:
     '''
 
     # Defer hook-specific imports.
-    from pytest_beartype._util.utilopt import get_pytest_option_tuple_strs
+    from pytest_beartype._util.utiloption import get_pytest_option_tuple_strs
 
     # print('In pytest_configure()...')
 

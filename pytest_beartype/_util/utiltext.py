@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # --------------------( LICENSE                            )--------------------
-# Copyright (c) 2024-2025 Beartype authors.
+# Copyright (c) 2024-2026 Beartype authors.
 # See "LICENSE" for further details.
 
 '''
-Plugin **text utilities** (i.e., low-level callables operating on strings in a
-general-purpose manner).
+Plugin-wide **text utilities** (i.e., low-level callables operating on strings
+in a general-purpose manner).
 '''
 
 # ....................{ IMPORTS                            }....................
